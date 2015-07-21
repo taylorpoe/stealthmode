@@ -1,0 +1,27 @@
+body,
+html {
+	background: linear-gradient(180deg, #91849F, #6E5E7F);
+}
+
+svg,
+g {
+	pointer-events: none;
+}
+
+#logo-link {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	/*background-color: blue;*/
+	cursor: pointer;
+	pointer-events: none;
+}
+
+/*#b-1 path {
+	fill: black;
+}*/
+
+/*.fit-it {
+	width: auto;
+	height: 100%;
+}*/
