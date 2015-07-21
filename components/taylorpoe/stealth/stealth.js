@@ -5,14 +5,13 @@ FamousFramework.scene('taylorpoe:stealth', {
         '#background': {
             'style': {
                 // 'background': 'linear-gradient(180deg, #91849F, #6E5E7F)',
-                // 'camera':'1000px'
+                'perspective':'1000px'
             }
         },
         '#nav': {
             'size': function(navHeight){
                 return [undefined, navHeight]
             },
-            'position-z': 30,
             'align': [0, 0],
             'mount-point': [0, 0],
             'origin': [.5, .5],
@@ -188,6 +187,9 @@ FamousFramework.scene('taylorpoe:stealth', {
         '#stealth': {
             'size': [371, 197],
             'position-y': 125,
+            '$if': function(stealthToggle) {
+                return stealthToggle;
+            }
         },
         '#rope-1': {
             'size': [35, 185],
@@ -345,16 +347,21 @@ FamousFramework.scene('taylorpoe:stealth', {
             },
             'click': function($timelines, $state) {
                 $timelines.get('b1Shot').start({ duration: 500 });
-                $timelines.get('lostLeft').start({ duration: 700 });
-                var lives = $state.get('livesB1');
+                $timelines.get('lostLeft').start({ duration: 500 });
+                var livesB1 = $state.get('livesB1');
+                var livesB2 = $state.get('livesB2');
+                var livesB3 = $state.get('livesB3');
                 // var deaths = $state.get('deathsB1');
-                if (lives.length >= 2) {
-                    lives.pop();
+                if (livesB1.length >= 2) {
+                    livesB1.pop();
                     // deaths.push(1);
-                    $state.set('livesB1', lives);
+                    $state.set('livesB1', livesB1);
                 } else {
                     $state.set('toggleB1', false);
                     $state.set('livesB1', []);
+                    if (livesB2.length == 0 && livesB2.length == 0) {
+                        $state.set('stealthToggle', false);
+                    };
                 };
                 // $state.set('deathsB1', deaths);
             }
@@ -374,15 +381,19 @@ FamousFramework.scene('taylorpoe:stealth', {
             },
             'click': function($timelines, $state) {
                 $timelines.get('b2Shot').start({ duration: 500 });
-                $timelines.get('lostMiddle').start({ duration: 700 });
-                var lives = $state.get('livesB2');
-                if (lives.length >= 2) {
-                    lives.pop();
-                    // deaths.push(1);
-                    $state.set('livesB2', lives);
+                $timelines.get('lostMiddle').start({ duration: 500 });
+                var livesB1 = $state.get('livesB1');
+                var livesB2 = $state.get('livesB2');
+                var livesB3 = $state.get('livesB3');
+                if (livesB2.length >= 2) {
+                    livesB2.pop();
+                    $state.set('livesB2', livesB2);
                 } else {
                     $state.set('toggleB2', false);
                     $state.set('livesB2', []);
+                    if (livesB1.length == 0 && livesB3.length == 0) {
+                        $state.set('stealthToggle', false);
+                    };
                 };
             }
         },
@@ -400,16 +411,20 @@ FamousFramework.scene('taylorpoe:stealth', {
                 });
             },
             'click': function($timelines, $state) {
-                $timelines.get('lostRight').start({ duration: 700 });
                 $timelines.get('b3Shot').start({ duration: 500 });
-                var lives = $state.get('livesB3');
-                if (lives.length >= 2) {
-                    lives.pop();
-                    // deaths.push(1);
-                    $state.set('livesB3', lives);
+                $timelines.get('lostRight').start({ duration: 500 });
+                var livesB1 = $state.get('livesB1');
+                var livesB2 = $state.get('livesB2');
+                var livesB3 = $state.get('livesB3');
+                if (livesB3.length >= 2) {
+                    livesB3.pop();
+                    $state.set('livesB3', livesB3);
                 } else {
                     $state.set('toggleB3', false);
                     $state.set('livesB3', []);
+                    if (livesB1.length == 0 && livesB2.length == 0) {
+                        $state.set('stealthToggle', false);
+                    };
                 };
             }
         }
@@ -424,6 +439,7 @@ FamousFramework.scene('taylorpoe:stealth', {
 
         // Livesstuffs
         holsterSize: 400,
+        stealthToggle: true,
 
         // Balloon & Rope 1
         livesB1: [1, 2, 3, 4, 5],
@@ -465,8 +481,8 @@ FamousFramework.scene('taylorpoe:stealth', {
         '#balloon-1': {
             'scale': {
                 '0%':   { value: [1,1], curve: 'quintIn' },
-                '49%':  { value: [5, 5], curve: 'easeInEaseOut' },
-                '50%':  { value: [.1,.1], curve: 'linear' },
+                '48%':  { value: [5, 5], curve: 'easeInEaseOut' },
+                '49%':  { value: [.1,.1], curve: 'linear' },
                 '100%':  { value: [1, 1], curve: 'easeInEaseOut' }
             },
             'opacity': {
@@ -479,7 +495,7 @@ FamousFramework.scene('taylorpoe:stealth', {
                 '49%':  { value: -131, curve: 'linear' },
                 '50%':    { value: 131, curve: 'linear' },
                 '100%':  { value: -131, curve: 'linear' }
-            },
+            }
         },
         '#rope-1': {
             'opacity': {
@@ -499,8 +515,8 @@ FamousFramework.scene('taylorpoe:stealth', {
         '#balloon-2': {
             'scale': {
                 '0%':   { value: [1,1], curve: 'quintIn' },
-                '49%':  { value: [5, 5], curve: 'easeInEaseOut' },
-                '50%':  { value: [.1,.1], curve: 'linear' },
+                '48%':  { value: [5, 5], curve: 'easeInEaseOut' },
+                '49%':  { value: [.1,.1], curve: 'linear' },
                 '100%':  { value: [1, 1], curve: 'easeInEaseOut' }
             },
             'opacity': {
@@ -513,7 +529,7 @@ FamousFramework.scene('taylorpoe:stealth', {
                 '49%':  { value: -161, curve: 'linear' },
                 '50%':    { value: 161, curve: 'linear' },
                 '100%':  { value: -161, curve: 'linear' }
-            },
+            }
         },
         '#rope-2': {
             'opacity': {
@@ -533,8 +549,8 @@ FamousFramework.scene('taylorpoe:stealth', {
         '#balloon-3': {
             'scale': {
                 '0%':   { value: [1,1], curve: 'quintIn' },
-                '49%':  { value: [5, 5], curve: 'easeInEaseOut' },
-                '50%':  { value: [.1,.1], curve: 'linear' },
+                '48%':  { value: [5, 5], curve: 'easeInEaseOut' },
+                '49%':  { value: [.1,.1], curve: 'linear' },
                 '100%':  { value: [1, 1], curve: 'easeInEaseOut' }
             },
             'opacity': {
@@ -547,7 +563,7 @@ FamousFramework.scene('taylorpoe:stealth', {
                 '49%':  { value: -141, curve: 'linear' },
                 '50%':    { value: 141, curve: 'linear' },
                 '100%':  { value: -141, curve: 'linear' }
-            },
+            }
         },
         '#rope-3': {
             'opacity': {
