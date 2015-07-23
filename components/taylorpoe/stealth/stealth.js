@@ -4,9 +4,10 @@ FamousFramework.scene('taylorpoe:stealth', {
     behaviors: {
         '#background': {
             'style': {
-                // 'background': 'linear-gradient(180deg, #91849F, #6E5E7F)',
-                'perspective':'1000px'
-            }
+                // 'background': 'blue',
+                'perspective':'500px'
+            },
+            // 'camera': '5000px',
         },
         '#nav': {
             'size': function(navHeight){
@@ -174,15 +175,16 @@ FamousFramework.scene('taylorpoe:stealth', {
             'position': function(illoPositionX, illoPositionY, navHeight){
                 return [illoPositionX, illoPositionY + navHeight/2]
             },
+            'position-z': 0,
             'rotation-z': 0,
             'rotation-x': 0,
             'rotation-y': 0,
             'align': [.5, .5],
             'mount-point': [.5, .5],
             'origin': [.5, .5],
-            // 'style': {
-            //     'background': 'rgba(246, 133, 150, 0.3)',
-            // }
+            'style': {
+                'background': 'transparent',
+            }
         },
         '#stealth': {
             'size': [371, 197],
@@ -360,10 +362,13 @@ FamousFramework.scene('taylorpoe:stealth', {
                     $state.set('toggleB1', false);
                     $state.set('livesB1', []);
                     if (livesB2.length == 0 && livesB2.length == 0) {
-                        $state.set('stealthToggle', false);
+                        $timelines.get('stealthFall').start({ duration: 2200 });
+                        
                     };
                 };
                 // $state.set('deathsB1', deaths);
+                // $state.set('stealthToggle', false)
+                //     .thenSet('stealthToggle', true);
             }
         },
         '#balloon-2': {
@@ -392,7 +397,7 @@ FamousFramework.scene('taylorpoe:stealth', {
                     $state.set('toggleB2', false);
                     $state.set('livesB2', []);
                     if (livesB1.length == 0 && livesB3.length == 0) {
-                        $state.set('stealthToggle', false);
+                        $timelines.get('stealthFall').start({ duration: 2200 });
                     };
                 };
             }
@@ -423,7 +428,7 @@ FamousFramework.scene('taylorpoe:stealth', {
                     $state.set('toggleB3', false);
                     $state.set('livesB3', []);
                     if (livesB1.length == 0 && livesB2.length == 0) {
-                        $state.set('stealthToggle', false);
+                        $timelines.get('stealthFall').start({ duration: 2200 });
                     };
                 };
             }
@@ -650,6 +655,50 @@ FamousFramework.scene('taylorpoe:stealth', {
                 '0%':   { value: 0, curve: 'easeOutBounce' },
                 '40%':  { value: -Math.PI/12, curve: 'easeOutBounce' },
                 '100%':   { value: 0, curve: 'easeOutBounce' }
+            }
+        }
+    },
+    'stealthFall' : {
+        '#stealth': {
+            'position-y': {
+                '0%':   { value: 125, curve: 'easeInEaseOut' },
+                '70%': { value: 1130, curve: 'easeInEaseOut'},
+                '100%':   { value: 2200, curve: 'easeInEaseOut' }
+            },
+            'position-x': {
+                '0%':   { value: 0, curve: 'easeInEaseOut' },
+                '50%':   { value: -180, curve: 'easeInEaseOut' },
+                '70%':   { value: -180, curve: 'easeInEaseOut' },
+                '100%':   { value: -220, curve: 'easeInEaseOut' }
+            },
+            'rotation-z': {
+                '0%':   { value: 0, curve: 'easeInEaseOut' },
+                '20%':   { value: -Math.PI*.1, curve: 'easeInEaseOut' },
+                '34%':   { value: -Math.PI*.1, curve: 'easeInEaseOut' },
+                '60%':  { value: Math.PI*2, curve: 'easeOutBounce' },
+                '80%':   { value: Math.PI*1.8, curve: 'easeInEaseOut' }
+            }
+        },
+        '#full-illo': {
+            'position-z': {
+                '0%':   { value: 0, curve: 'easeInEaseOut' },
+                '100%':   { value: -2000, curve: 'easeInEaseOut' }
+            },
+            'position-y': {
+                '0%':   { value: 0, curve: 'easeInEaseOut' },
+                '100%':   { value: -1000, curve: 'easeInEaseOut' }
+            },
+            'rotation-x': {
+                '0%':   { value: 0, curve: 'easeInEaseOut' },
+                '100%':   { value: Math.PI*.2, curve: 'easeInEaseOut' }
+            },
+            'rotation-y': {
+                '0%':   { value: 0, curve: 'easeInEaseOut' },
+                '100%':   { value: Math.PI*.2, curve: 'easeInEaseOut' }
+            },
+            'opacity': {
+                '95%':  { value: 1, curve: 'linear'},
+                '100%':  { value: 0, curve: 'linear'}
             }
         }
     }
