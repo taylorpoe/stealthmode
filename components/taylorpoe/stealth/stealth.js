@@ -2,12 +2,11 @@
 FamousFramework.scene('taylorpoe:stealth', {
 //+++++++++++++++++++++++++++BEHAVIORS++++++++++++++++++++++++++++
     behaviors: {
-        '#background': {
+        '#root': {
             'style': {
-                // 'background': 'blue',
                 'perspective':'500px'
             },
-            // 'camera': '5000px',
+            // 'camera': '5000',
         },
         '#nav': {
             'size': function(navHeight){
@@ -16,6 +15,7 @@ FamousFramework.scene('taylorpoe:stealth', {
             'align': [0, 0],
             'mount-point': [0, 0],
             'origin': [.5, .5],
+            'position-z': 25,
             'style': {
                 'background': 'rgba(18, 12, 24, 0.8)',
                 'border-bottom': 'solid 1px black'
@@ -309,17 +309,48 @@ FamousFramework.scene('taylorpoe:stealth', {
     },
 //+++++++++++++++++++++++++++EVENTS++++++++++++++++++++++++++++
     events: {
+
         '$lifecycle': {
-            'post-load': function levitate($state) {
-                $state.set('illoPositionY', $state.get('illoPositionY') - 50, {
-                duration: 1000,
-                curve: 'easeInEaseOut',
-                }).thenSet('illoPositionY', $state.get('illoPositionY') + 25, {
-                    duration: 1000,
-                    curve: 'easeInEaseOut'
+            'post-load': function($state, $famousNode){
+                var id = $famousNode.addComponent({
+                    onUpdate: function(time) {
+                        var currentZ = $state.get('illoPositionY')
+                        if(currentZ < -$state.get('contextSize')){
+                            currentZ = $state.get('contextSize') - 200;
+                        }
+                        $state.set('illoPositionY', currentZ-2);  
+                        $famousNode.requestUpdateOnNextTick(id);
+                    }
                 });
+                $famousNode.requestUpdateOnNextTick(id);
             }
         },
+
+
+        // '$lifecycle': {
+        //     'post-load': function($state, $famousNode){
+        //         var id = $famousNode.addComponent({    
+        //             onUpdate: function(time) {
+        //                 var currentY = $state.get('illoPositionY');
+        //                 $state.set('illoPositionY', currentY-1);
+        //                 $famousNode.requestUpdateOnNextTick(id);
+        //             }
+        //         });
+        //         $famousNode.requestUpdateOnNextTick(id);
+        //     }
+        // },
+
+        // '$lifecycle': {
+        //     'post-load': function ($state) {
+        //         $state.set('illoPositionY', $state.get('illoPositionY') - 50, {
+        //         duration: 1000,
+        //         curve: 'easeInEaseOut',
+        //         }).thenSet('illoPositionY', $state.get('illoPositionY') + 25, {
+        //             duration: 1000,
+        //             curve: 'easeInEaseOut'
+        //         });
+        //     }
+        // },
         '#logo': {
             'mouseover': function($state) {
                 $state.set('logoRotation', -Math.PI, {
@@ -436,9 +467,10 @@ FamousFramework.scene('taylorpoe:stealth', {
     },
 //+++++++++++++++++++++++++++STATES++++++++++++++++++++++++++++
     states: {
+        contextSize: contextSize,
         navHeight: 32,
         illoPositionX: 0,
-        illoPositionY: 0,
+        illoPositionY: 50,
         logoRotation: 0,
         logoScale: 1,
 
@@ -477,7 +509,8 @@ FamousFramework.scene('taylorpoe:stealth', {
     tree: 'stealth.html'
 }).config({
     includes: [
-        'stealth.css'
+        'stealth.css',
+        'helpers.js'
     ]
 
 //++++++++++++++++++++++++++++TIMELINES++++++++++++++++++++++++++++
