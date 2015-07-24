@@ -311,11 +311,16 @@ FamousFramework.scene('taylorpoe:stealth', {
             'post-load': function($state, $famousNode){
                 var id = $famousNode.addComponent({
                     onUpdate: function(time) {
-                        var currentZ = $state.get('illoPositionY')
-                        if(currentZ < -$state.get('contextSize')){
-                            currentZ = $state.get('contextSize') - 200;
+                        var currentY = $state.get('illoPositionY');
+                        var context = $state.get('contextSize');
+                        if(currentY < -context ){
+                            currentY = context - 200;
                         }
-                        $state.set('illoPositionY', currentZ-2);  
+                        if(currentY < -context+500 ){
+                            $state.set('illoPositionY', currentY-6); 
+                        } else {
+                            $state.set('illoPositionY', currentY-2); 
+                        } 
                         $famousNode.requestUpdateOnNextTick(id);
                     }
                 });
