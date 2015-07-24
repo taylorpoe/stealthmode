@@ -18,3 +18,29 @@ var contextSize = window.innerHeight
 // } else {
 //     up = true;
 // }
+
+
+// '$lifecycle': {
+//     'post-load': function($state, $famousNode){
+//         var id = $famousNode.addComponent({    
+//             onUpdate: function(time) {
+//                 var currentY = $state.get('illoPositionY');
+//                 $state.set('illoPositionY', currentY-1);
+//                 $famousNode.requestUpdateOnNextTick(id);
+//             }
+//         });
+//         $famousNode.requestUpdateOnNextTick(id);
+//     }
+// },
+
+// '$lifecycle': {
+//     'post-load': function ($state) {
+//         $state.set('illoPositionY', $state.get('illoPositionY') - 50, {
+//         duration: 1000,
+//         curve: 'easeInEaseOut',
+//         }).thenSet('illoPositionY', $state.get('illoPositionY') + 25, {
+//             duration: 1000,
+//             curve: 'easeInEaseOut'
+//         });
+//     }
+// },

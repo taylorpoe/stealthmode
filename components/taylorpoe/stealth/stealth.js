@@ -188,10 +188,7 @@ FamousFramework.scene('taylorpoe:stealth', {
         },
         '#stealth': {
             'size': [371, 197],
-            'position-y': 125,
-            '$if': function(stealthToggle) {
-                return stealthToggle;
-            }
+            'position-y': 125
         },
         '#rope-1': {
             'size': [35, 185],
@@ -325,32 +322,6 @@ FamousFramework.scene('taylorpoe:stealth', {
                 $famousNode.requestUpdateOnNextTick(id);
             }
         },
-
-
-        // '$lifecycle': {
-        //     'post-load': function($state, $famousNode){
-        //         var id = $famousNode.addComponent({    
-        //             onUpdate: function(time) {
-        //                 var currentY = $state.get('illoPositionY');
-        //                 $state.set('illoPositionY', currentY-1);
-        //                 $famousNode.requestUpdateOnNextTick(id);
-        //             }
-        //         });
-        //         $famousNode.requestUpdateOnNextTick(id);
-        //     }
-        // },
-
-        // '$lifecycle': {
-        //     'post-load': function ($state) {
-        //         $state.set('illoPositionY', $state.get('illoPositionY') - 50, {
-        //         duration: 1000,
-        //         curve: 'easeInEaseOut',
-        //         }).thenSet('illoPositionY', $state.get('illoPositionY') + 25, {
-        //             duration: 1000,
-        //             curve: 'easeInEaseOut'
-        //         });
-        //     }
-        // },
         '#logo': {
             'mouseover': function($state) {
                 $state.set('logoRotation', -Math.PI, {
@@ -470,7 +441,7 @@ FamousFramework.scene('taylorpoe:stealth', {
         contextSize: contextSize,
         navHeight: 32,
         illoPositionX: 0,
-        illoPositionY: 50,
+        illoPositionY: 250,
         logoRotation: 0,
         logoScale: 1,
 
