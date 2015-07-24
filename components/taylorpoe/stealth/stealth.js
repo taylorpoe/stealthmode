@@ -6,7 +6,7 @@ FamousFramework.scene('taylorpoe:stealth', {
             'style': {
                 'perspective':'500px'
             },
-            // 'camera': '5000',
+            // 'camera': 200,
         },
         '#nav': {
             'size': function(navHeight){
@@ -356,14 +356,14 @@ FamousFramework.scene('taylorpoe:stealth', {
                 var livesB2 = $state.get('livesB2');
                 var livesB3 = $state.get('livesB3');
                 // var deaths = $state.get('deathsB1');
-                if (livesB1.length >= 2) {
+                if (livesB1.length > 1) {
                     livesB1.pop();
                     // deaths.push(1);
                     $state.set('livesB1', livesB1);
                 } else {
                     $state.set('toggleB1', false);
                     $state.set('livesB1', []);
-                    if (livesB2.length == 0 && livesB2.length == 0) {
+                    if (livesB2.length == 0 && livesB3.length == 0) {
                         $timelines.get('stealthFall').start({ duration: 2200 });
                         
                     };
@@ -392,7 +392,7 @@ FamousFramework.scene('taylorpoe:stealth', {
                 var livesB1 = $state.get('livesB1');
                 var livesB2 = $state.get('livesB2');
                 var livesB3 = $state.get('livesB3');
-                if (livesB2.length >= 2) {
+                if (livesB2.length > 1) {
                     livesB2.pop();
                     $state.set('livesB2', livesB2);
                 } else {
@@ -423,7 +423,7 @@ FamousFramework.scene('taylorpoe:stealth', {
                 var livesB1 = $state.get('livesB1');
                 var livesB2 = $state.get('livesB2');
                 var livesB3 = $state.get('livesB3');
-                if (livesB3.length >= 2) {
+                if (livesB3.length > 1) {
                     livesB3.pop();
                     $state.set('livesB3', livesB3);
                 } else {
@@ -664,8 +664,12 @@ FamousFramework.scene('taylorpoe:stealth', {
     },
     'stealthFall' : {
         '#stealth': {
+            'position-z': {
+                '0%':   { value: 0, curve: 'easeInEaseOut' },
+                '100%':   { value: -2000, curve: 'easeInEaseOut' }
+            },
             'position-y': {
-                '0%':   { value: 125, curve: 'easeInEaseOut' },
+                // '0%':   { value: 125, curve: 'easeInEaseOut' },
                 '70%': { value: 1130, curve: 'easeInEaseOut'},
                 '100%':   { value: 2200, curve: 'easeInEaseOut' }
             },
@@ -684,12 +688,8 @@ FamousFramework.scene('taylorpoe:stealth', {
             }
         },
         '#full-illo': {
-            'position-z': {
-                '0%':   { value: 0, curve: 'easeInEaseOut' },
-                '100%':   { value: -2000, curve: 'easeInEaseOut' }
-            },
             'position-y': {
-                '0%':   { value: 0, curve: 'easeInEaseOut' },
+                // '0%':   { value: 0, curve: 'easeInEaseOut' },
                 '100%':   { value: -1000, curve: 'easeInEaseOut' }
             },
             'rotation-x': {
