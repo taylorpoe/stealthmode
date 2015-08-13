@@ -6,7 +6,7 @@ A Famous Framework component
 
 
 ## Live Demo
-Visit the [live demo here](https://api-beta.famo.us/codemanager/v1/containers/74ec3488-0a6e-4950-9aea-44a63dcd6d17/share)
+Visit the [live demo here](http://colortheory.io/stealth)
 
 ## Context
 Project was made simply to familiarize myself with the new [Famous Framework](http://famous.org/framework/) (currently in Alpha).
