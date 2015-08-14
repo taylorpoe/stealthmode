@@ -6,7 +6,7 @@ A Famous Framework component
 
 
 ## Live Demo
-Visit the [live demo here](http://colortheory.io/stealth)
+Visit the [live demo here](http://colortheory.io/stealth). Currently only works on Google Chrome.
 
 ## Context
 Project was made simply to familiarize myself with the new [Famous Framework](http://famous.org/framework/) (currently in Alpha).
@@ -25,8 +25,4 @@ Then start up the local development server:
 
 Then surf to [localhost:1618](http://localhost:1618) ...
 
-## Deploying
 
-Once you're ready to deploy your component, run
-
-    $ famous deploy
